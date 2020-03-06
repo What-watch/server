@@ -7,7 +7,7 @@ class WishlistController {
   static findAll (req, res, next) {
     UserMovie.findAll({
       where : {
-        UserId : 1 // req.currentUserId
+        UserId : 1 // req.decoded.id 
       }
     })
       .then(movies => {
@@ -51,11 +51,11 @@ class WishlistController {
 
   static delete (req, res, next) {
     let movieId = req.params.movieId
-    let userId = 1 // req.currentUserId
+    let userId = 1 // req.decoded.id 
     UserMovie.destroy({
       where: {
         UserId: userId,
-        MovieId: movieId //tt321434
+        MovieId: movieId
       }
     })
       .then(data => {
