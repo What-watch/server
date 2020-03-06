@@ -19,8 +19,8 @@ class WishlistController {
             url: 'https://imdb8.p.rapidapi.com/title/get-details',
             headers: {
               "content-type":"application/json",
-              "x-rapidapi-host":"imdb8.p.rapidapi.com",
-              "x-rapidapi-key":"0565ce5be1mshc9853b4ee335566p106544jsn7103d2b17cf0"
+              "x-rapidapi-host": process.env.RAPIDAPI_HOST_IMDB,
+              "x-rapidapi-key": process.env.RAPIDAPI_KEY_IMDB
             },
             params: {
               tconst: movie.MovieId
