@@ -6,11 +6,11 @@ class TIXIDController{
         console.log('masuk list movies')
         axios({
             method: 'GET',
-            url: 'https://api.tix.id/v1/movies/now_playing?',
+            url: 'https://api.tix.id/v1/movies/now_playing',
             headers: {
-                "content-type": "application/json",
+                // "content-type": "application/json",
                 token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtc2lzZG4iOiIiLCJ1c2VyX2lkIjoiIiwiYXV0aF9zaWduIjoiMmNmNGUxNzktNzQwNS00YWJkLWFlNjAtNTFiMGE2NzhlMzIxIiwicHVycG9zZSI6Im5vdGxvZ2luIiwiYXVkIjoiVGl4SUQgTWlkZGxld2FyZSIsImV4cCI6MTU5MjA5NzYxMCwiaWF0IjoxNTgzNDU3NjEwLCJpc3MiOiJUaXhJRCBTZWN1cml0eSBBdXRob3JpdHkiLCJzdWIiOiJNb2JpbGUgYXV0aG9yaXphdGlvbiB0b2tlbiJ9.q4PiBBerifPNjhxlNO6hL2dgP_nkFzYG7OYxNzBQ8ro",
-                'User-Agent': 'axios/0.19.2'
+                // 'User-Agent': 'axios/0.19.2'
             },
             params: {
                 city_id : "973818511732248576",
