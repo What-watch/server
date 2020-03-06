@@ -4,13 +4,13 @@ module.exports = (sequelize, DataTypes) => {
 
   class UserMovie extends Model {
     static associate (models) {
-
+      UserMovie.belongsTo(models.User)
     }
   }
 
   UserMovie.init({
     UserId: DataTypes.INTEGER,
-    MovieId: DataTypes.INTEGER
+    MovieId: DataTypes.STRING
   }, {
     sequelize
   })
