@@ -1,11 +1,14 @@
 'use strict';
+const {
+  hashPassword
+} = require('../helper/hashpassword')
 module.exports = (sequelize, DataTypes) => {
 
   const Model = sequelize.Sequelize.Model
 
   class User extends Model {
-    static associate (models) {
-      User.belongsToMany(models.Movie, {through : models.UserMovie})
+    static associate(models) {
+      User.hasMany(models.UserMovie)
     }
   }
 
@@ -13,21 +16,21 @@ module.exports = (sequelize, DataTypes) => {
     fullname: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate : {
-        notNull : {
+      validate: {
+        notNull: {
           msg: 'Fullname is required'
         },
-        notEmpty : {
+        notEmpty: {
           args: true,
           msg: 'Fullname is required'
         }
       }
-    }, 
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate : {
-        notNull : {
+      validate: {
+        notNull: {
           msg: 'Email is required'
         },
         notEmpty: {
@@ -39,29 +42,29 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Invalid email format'
         }
       }
-    }, 
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull : {
+        notNull: {
           msg: 'Password is required'
         },
         notEmpty: {
           args: true,
           msg: 'Password is required'
         },
-        len : {
-          args : [8],
+        len: {
+          args: [8],
           msg: 'Minimal password length is 8 character'
         }
       }
-    }, 
+    },
     no_hp: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate : {
-        notNull : {
+      validate: {
+        notNull: {
           msg: 'No. Handphone is required'
         },
         notEmpty: {
@@ -69,10 +72,18 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'No. Handphone is required'
         }
       }
-    } 
+    }
   }, {
-    sequelize
+    hooks: {
+      beforeCreate: (User, option) => {
+        console.log(User.password);
+        User.password = hashPassword(User.password)
+        console.log(User.password);
+      }
+    },
+    sequelize,
+    modelName: 'User'
   })
-  
+
   return User;
 };
