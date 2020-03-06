@@ -21,13 +21,7 @@ class TIXIDController{
                 let movies = response.data.results
                 res.status(200).json(movies)
             })
-            .catch(err => {
-                console.log(err)
-                res.status(500).json({
-                    error: "Internal Server Error",
-                    err
-                })
-            })
+            .catch(next)
     }
 
     static movieUpComing(req, res, next){
@@ -46,9 +40,7 @@ class TIXIDController{
                 let movies = response.data.results
                 res.status(200).json(movies)
             })
-            .catch(err => {
-                console.log(err)
-            })
+            .catch(next)
     }
 }
 
