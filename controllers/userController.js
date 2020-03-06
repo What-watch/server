@@ -48,6 +48,7 @@ class UserController {
   }
 
   static login(req, res, next) {
+    console.log('MASUK LOGIN =======>>>>>>>>>>')
     User.findOne({
       where: {
         email: req.body.email
@@ -61,6 +62,7 @@ class UserController {
             email: result.email
           }
           let token = tokenGenerate(payLoad)
+          console.log('MASUK RES STATUS')
           res.status(200).json(token)
         } else {
           next({
@@ -82,6 +84,7 @@ class UserController {
   }
 
   static gooLogin(req, res, next) {
+    console.log('MASUK GOOGLE SIGN ')
     const emailCheck = {}
     const client = new OAuth2Client(process.env.CLIENT_ID);
     const token = req.headers.token
@@ -118,6 +121,7 @@ class UserController {
                   email: result.email
                 }
                 let token = tokenGenerate(payLoad)
+                console.log(token, '>>>>>>>>>>>>>><<<<<')
                 res.status(200).json(token)
               } else res.status(400).json('email / password is Wrong')
             })

@@ -1,13 +1,15 @@
 const { UserMovie } = require('../models')
 const axios = require('axios')
 const selectionId = require('../helpers/selectionIdMovie')
+const { tokenVerify } = require('../helper/jwt')
 
 class WishlistController {
 
   static findAll (req, res, next) {
+    let decoded = tokenVerify(req.headers.token)
     UserMovie.findAll({
       where : {
-        UserId : 1 // req.decoded.id 
+        UserId : decoded.id // req.decoded.id 
       }
     })
       .then(movies => {
@@ -50,8 +52,9 @@ class WishlistController {
   }
 
   static delete (req, res, next) {
+    let decoded = tokenVerify(req.headers.token)
     let movieId = req.params.movieId
-    let userId = 1 // req.decoded.id 
+    let userId = decoded.id // req.decoded.id 
     UserMovie.destroy({
       where: {
         UserId: userId,
@@ -65,6 +68,21 @@ class WishlistController {
       })
       .catch(err => {
         res.status(500).json(err)
+      })
+  }
+
+  static create (req, res, next) {
+    let decoded = tokenVerify(req.headers.token)
+    let payload = {
+      UserId : decoded.id,
+      MovieId : req.body.MovieId
+    }
+    UserMovie.create(payload)
+      .then(data => {
+        res.status(201).json(data)
+      })
+      .catch(err => {
+        res.status(500).json(data)
       })
   }
 }
