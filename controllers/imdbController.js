@@ -1,5 +1,4 @@
 const axios = require('axios')
-const Blob = require('blob')
 
 class imdbController {
   static findByTitleImdb(req, res, next) {
