@@ -67,6 +67,20 @@ class WishlistController {
         res.status(500).json(err)
       })
   }
+
+  static create (req, res, next) {
+    let payload = {
+      UserId : 1,
+      MovieId : req.body.MovieId
+    }
+    UserMovie.create(payload)
+      .then(data => {
+        res.status(201).json(data)
+      })
+      .catch(err => {
+        res.status(500).json(data)
+      })
+  }
 }
 
 module.exports = WishlistController
